@@ -82,6 +82,31 @@ shift(){
 
   return temp; // Return the removed node
 }
+
+ // Method to add a new node with a given value to the beginning of the list
+ unShift(val) {
+  const newNode = new Node(val);
+  if (!this.head) {
+    this.head = this.tail = newNode;
+  } else {
+    newNode.next = this.head;
+    this.head = newNode;
+  }
+  this.length++;
+  return this; // Return the modified list
+}
+
+get(index){
+  if(index < 0 || index >= this.length) return;
+
+  let current = this.head;
+  for(let i = 0; i < index; i++){
+    current = current.next;
+  }
+
+  return current;
+}
+
 }
 
 // Create a new instance of the SinglyLinkedList class
@@ -98,4 +123,7 @@ console.log(list.pop());
 console.log(list.pop());
 console.log(list.pop());
 console.log(list.push(9999));
+console.log(list.unShift(1));
+console.log(list.unShift(0));
+console.log(list.get(0));
 
