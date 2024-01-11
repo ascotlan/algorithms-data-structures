@@ -60,7 +60,7 @@ class BinarySearchTree {
     // Traverse the tree to find the given value
     while (true) {
       // return true if value found
-      if ((value === current.value)) return !!current;
+      if (value === current.value) return !!current;
       // If value is greater than the current node's value, move to the right
       if (value > current.value) {
         if (current.right) {
@@ -78,16 +78,110 @@ class BinarySearchTree {
       }
     }
   }
+
+  // A method to search the tree in a breadth first appraoch
+  breadthFirstSearch() {
+    const queue = []; // Initialize a queue to keep track of nodes to visit
+    const visited = []; // Initialize an array to store the visited nodes' values
+    let removed = this.root; // Variable to keep track of the current node being processed
+
+    queue.push(this.root); // Start the traversal by adding the root to the queue
+
+    while (queue.length) {
+      removed = queue.shift(); // Remove the front node from the queue (FIFO)
+      visited.push(removed.value); // Add the value of the removed node to the visited array
+
+      if (removed.left) queue.push(removed.left); // Enqueue the left child if it exists
+      if (removed.right) queue.push(removed.right); // Enqueue the right child if it exists
+    }
+
+    return visited; // Return the array of visited node values in BFS order
+  }
+
+  // Method to search the tree in a depth-first, pre-order approach
+  dfsPreOrder() {
+    const visited = []; // Initialize an array to store the visited nodes' values
+    const current = this.root; // Set the current node to the root of the tree
+
+    // Helper function for recursive pre-order traversal
+    const helper = (node) => {
+      visited.push(node.value); // Visit the current node and add its value to the visited array
+
+      // Recursively traverse the left subtree if it exists
+      if (node.left) {
+        helper(node.left);
+      }
+
+      // Recursively traverse the right subtree if it exists
+      if (node.right) {
+        helper(node.right);
+      }
+    };
+
+    helper(current); // Start the pre-order traversal from the root
+    return visited; // Return the array of visited node values in pre-order
+  }
+
+  // Method to search the tree in a depth-first, post-order approach
+  dfsPostOrder(){
+    const visited = []; // Initialize an array to store the visited nodes' values
+
+    const current = this.root; // Set the current node to the root of the tree
+
+    // Helper function for recursive pre-order traversal
+    const helper = (node) => {
+      // Recursively traverse the left subtree if it exists
+      if (node.left) {
+        helper(node.left);
+      }
+
+      // Recursively traverse the right subtree if it exists
+      if (node.right) {
+        helper(node.right);
+      }
+
+      visited.push(node.value); // Visit the current node and add its value to the visited array
+    }
+
+    helper(current); // Start the pre-order traversal from the root
+    return visited; // Return the array of visited node values in pre-order
+  }
+
+   // Method to search the tree in a depth-first, in-order approach
+   dfsInOrder(){
+    const visited = []; // Initialize an array to store the visited nodes' values
+
+    const current = this.root; // Set the current node to the root of the tree
+
+    // Helper function for recursive pre-order traversal
+    const helper = (node) => {
+      // Recursively traverse the left subtree if it exists
+      if (node.left) {
+        helper(node.left);
+      }
+
+      visited.push(node.value); // Visit the current node and add its value to the visited array
+
+      // Recursively traverse the right subtree if it exists
+      if (node.right) {
+        helper(node.right);
+      }
+    }
+
+    helper(current); // Start the pre-order traversal from the root
+    return visited; // Return the array of visited node values in pre-order
+  }
 }
 
 var tree = new BinarySearchTree();
 tree.insert(10);
-tree.insert(5);
-tree.insert(13);
-tree.insert(11);
-tree.insert(2);
-tree.insert(16);
-console.log(tree.insert(10));
-console.log(tree.insert(7));
-console.log(tree.find(16));
-console.log(tree.find(17));
+tree.insert(6);
+tree.insert(15);
+tree.insert(3);
+tree.insert(8);
+tree.insert(20);
+
+console.log(tree.breadthFirstSearch());
+console.log(tree.dfsPreOrder());
+console.log(tree.dfsPostOrder());
+console.log(tree.dfsInOrder());
