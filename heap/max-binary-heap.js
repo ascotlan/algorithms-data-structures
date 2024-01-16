@@ -86,8 +86,12 @@ class MaxBinaryHeap {
     const removedValue = this.values[0];
 
     // Replace the root with the last element and move it down the heap
-    this.values[0] = this.values.pop();
-    this.bubbleDown();
+    if (this.values.length > 1) {
+      this.values[0] = this.values.pop();
+      this.bubbleDown();
+    } else {
+      this.values.pop();
+    }
 
     // Return the extracted maximum value
     return removedValue;
@@ -103,8 +107,14 @@ heap.insert(18);
 heap.insert(27);
 heap.insert(12);
 heap.insert(55);
-heap.insert(1);
-heap.insert(45);
-heap.insert(199);
 console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.extractMax());
+console.log(heap.values);
+heap.insert(99);
+heap.insert(10);
 console.log(heap.values);
